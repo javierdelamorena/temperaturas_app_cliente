@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body  >
+    
+    
+		
+            <div ng-app="informacionApp" ng-controller="informacionController" class="container">
+                
+                    <h1>Informacion general</h1></br>
+                
+
+                    <label>Temperatura Maxima:  </label><input type="button" ng-click="diaMaximo();" value= "Max" class="btn btn-default"></br>
+                    <label>Temperatura Minima:  </label><input type="button" ng-click="diaMinimo();" value= "Min" class="btn btn-default"></br>
+                    <label>Temperatura Media:   </label><input type="button" ng-click="mediaTotal();" value= "Media" class="btn btn-default"></br>
+                    
+                    
+
+                    
+                    <label>Temperatura Maxima Dia:  </label><input type="date" ng-model="fecha" >
+                                                            <input type="button" ng-click="fechaMax();" value="maxDia"></br>
+                    <label>Temperatura Minima Dia:  </label><input type="date" ng-model="fecha1" >
+                     <input type="button" ng-click="fechaMin();" value="minDia"></br>
+                    
+                <center>
+                <table ng-show="tempMax" class="table table-condensed" border="1">                    
+                    <thead><tr><th>Temperatura Maximo:</th><th>Humedad </th><th>Dia </th></tr></thead>	                                              
+                        <tr>
+                            <td>{{tempMax.temp1}}</td>
+                            <td>{{tempMax.humedad}}</td>
+                            <td>{{tempMax.fecha}}</td>
+                        </tr>
+                    </table>                    
+                    <table ng-show="tempMin" class="table table-condensed" border="1">                    
+                        <thead><tr><th>Temperatura Minima:</th><th>Humedad </th><th>Dia </th></tr></thead>	                                              
+                            <tr>
+                                <td>{{tempMin.temp1}}</td>
+                                <td>{{tempMin.humedad}}</td>
+                                <td>{{tempMin.fecha}}</td>
+                            </tr>
+                    </table>
+                    <table ng-show="max" class="table table-condensed" border="1">                    
+                        <thead><tr><th>Temperatura Maximo Dia:</th><th>Humedad </th><th>Dia </th></tr></thead>	                                              
+                            <tr>
+                                <td>{{max.temp1}}</td>
+                                <td>{{max.humedad}}</td>
+                                <td>{{max.fecha}}</td>
+                            </tr>
+                    </table>
+                    <table ng-show="min" class="table table-condensed" border="1">                    
+                        <thead><tr><th>Temperatura Minima Dia:</th><th>Humedad </th><th>Dia </th></tr></thead>	                                              
+                            <tr>
+                                <td>{{min.temp1}}</td>
+                                <td>{{min.humedad}}</td>
+                                <td>{{min.fecha}}</td>
+                            </tr>
+                    </table>
+                    <table ng-show="media" class="table table-condensed" border="1">                    
+                        <thead><tr><th>Temperatura Media:</th></tr></thead>	                                              
+                            <tr>
+                                <td>{{ media }}</td>
+                                
+                            </tr>
+                    </table>
+                    
+                  
+                   
+
+                    
+
+                </center>
+
+
+                <a href="toMenu">Menu </a>
+           
+	
+            </div>
+
+    <script>
+		var app=angular.module("informacionApp",[]);
+		
+		app.controller("informacionController",function($scope,$http){
+			
+			$scope.diaMaximo=function(){
+                let url="doMaximaTemperatura";
+                $http.get(url).then(function(res){
+									
+					$scope.tempMax=res.data;
+					
+				});
+            }
+            $scope.diaMinimo=function(){
+                let url="doMinimaTemperatura";
+                $http.get(url).then(function(res){
+									
+					$scope.tempMin=res.data;
+					
+				});
+            }
+            $scope.fechaMax=function(){
+                let url="doMaximaTemperaturaDia";
+                $http.get(url,{params:{fecha:$scope.fecha}}).then(function(res){
+									
+					$scope.max=res.data;
+					
+				});
+            }
+            $scope.fechaMin=function(){
+                let url="doMinimaTemperaturaDia";
+                $http.get(url,{params:{fecha:$scope.fecha1}}).then(function(res){
+									
+					$scope.min=res.data;
+					
+				});
+            }
+            $scope.mediaTotal=function(){
+                let url="doMediaTemperatura";
+                $http.get(url).then(function(res){
+									
+					$scope.media=res.data;
+					
+				});
+            }
+        });
+
+	</script>
+
+</body>
+</html>

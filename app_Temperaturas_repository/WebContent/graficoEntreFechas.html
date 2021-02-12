@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body onload="buscar();">
+    <center>
+    <form action="doTemperaturaEntreFechas" method="Post">
+        <div class="input-group" style="width:30%">
+          <label>Fecha inicio</label><input class="form-control" type="date" name="fecha1"/>
+        </div>
+        <div class="input-group" style="width:30%">
+          <label>Fecha Fin </label><input class="form-control" type="date" name="fecha2"/>
+        </div>		
+          <br><br>
+          <button type="submit" class="btn btn-default btn-primary" style="width:20%">Consultar</button>
+        </div>	
+      </form>
+    </center>
+    <div width="20" height="10" background-color="blue">
+      <center>
+       <h1>Temperatura/Humedad</h1>
+         <canvas id="myChart" width="3000" height="600" ></canvas>
+      </center>
+      <input type="button"  onclick="graficar();" value="Buscar "></br>  
+      <a href="toMenu">Menu </a>
+  </div>  
+</body>
+<script >  
+  var stop;
+  function activartemporizar(){
+              stop=window.setInterval(graficar,5000);
+              window.setInterval(buscar,5000);
+              
+          }
+          function desactivartemporizador(){
+              window.clearInterval(stop);            
+          }       	  
+      
+           function buscar(){
+          
+          var url="doMostrarTemperaturaEntreFechas";
+          $.get(url,procesarRespuesta);
+          
+      }
+       var temp=[];
+       var data=[];
+       var humedades=[];
+       var fechas= [];         
+     
+          function procesarRespuesta(data){
+          
+          $.each(data,function(index,listaString){               
+             temp.push( listaString.temp1 )    ;
+             humedades.push( listaString.humedad );               
+             fechas.push ( listaString.fecha); 
+
+            
+             console.log(listaString.fecha )
+             
+         
+          });
+          
+          
+          }       
+          function graficar(){ 
+                 
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+              
+              type: 'line',
+              data: {
+                  labels:fechas,
+                  datasets: [{
+                      label: 'Temperatura',
+                     
+                      data: temp,
+                                       
+                      
+                    },
+                      
+                      {
+                      label: 'Humedad',
+                     
+                      data: humedades,                      
+                      }                                                 
+                     
+                  ]
+                  
+              },
+              
+          });
+          console.log(temp);   
+      }
+
+
+</script>
+</html>

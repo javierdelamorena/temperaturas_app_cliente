@@ -1,0 +1,104 @@
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      
+        
+    </head>
+    <style>
+       div{
+       width: 1000;
+       margin-left: 600px;
+       margin-top: 300px;    
+       border: 1px solid black;
+       background-color: rgb(228, 235, 240);
+       }
+       body {
+       background-color: lightblue;
+       }
+      
+    </style>
+    <body onload="activartemporizar();" >
+        
+       <div width="20" height="10" background-color="blue" >
+           <center>
+            <h1>Temperatura</h1>
+               <canvas id="myChart" width="1000" height="600" background-color="blue"></canvas>
+           </center>
+                
+      </div>
+             <input type="button" onclick="desactivartemporizador();" value="desactivar">
+             <input type="button" onclick="buscar();" value="buscar"></br>
+             <a href="toMenu">Menu </a> 
+    </body>
+    <script type="text/javascript" >
+    
+          
+          function buscar(){
+              
+            var url="doMostrarTemperaturas";
+            $.get(url,procesarRespuesta);
+            
+        }
+        var temp;
+        var humedad;
+        var fecha;
+        
+            function procesarRespuesta(data){
+            
+            $.each(data,function(index,lista){               
+               temp=lista.temp1;
+               humedad=lista.humedad;
+               fecha=lista.fecha;              
+           
+            });
+            
+            }      
+          var stop;
+          function activartemporizar(){
+              stop=window.setInterval(graficar,5000);
+              window.setInterval(buscar,5000);
+          }
+          function desactivartemporizador(){
+              window.clearInterval(stop);            
+          }       	
+          
+          
+            
+          function graficar(){        
+              var ctx = document.getElementById('myChart').getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: [fecha, fecha],
+                      datasets: [{
+                          label: 'temperatura/humadad',
+                          data: [temp, humedad],
+                          
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(255, 99, 132, 1)'                            
+                          ],
+                          borderWidth: 4
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero: true
+                              }
+                          }]
+                      }
+                  }
+              });
+          }
+    
+    </script>
+    
+</html>

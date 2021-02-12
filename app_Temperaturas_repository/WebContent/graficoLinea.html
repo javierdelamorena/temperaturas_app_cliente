@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Visualización de datos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+       div{
+           
+     
+       margin-top: 200px;    
+       border: 1px solid black;
+      
+       }
+       
+       
+</style>
+<body onload="activartemporizar();">
+    <div width="20" height="10" background-color="blue">
+        <center>
+         <h1>Temperatura/Humedad</h1>
+           <canvas id="myChart" width="3000" height="600" ></canvas>
+        </center>
+        <input type="button" onclick="desactivartemporizador();" value="desactivar"> 
+        <input type="button" onclick="borrar();" value="borrar"> 
+        <a href="toMenu">Menu </a> 
+    </div>  
+
+</body>  
+<script >  
+               
+      var stop;
+          function activartemporizar(){
+              stop=window.setInterval(graficar,6000);            
+              window.setInterval(buscar,6000);
+          }         
+          function desactivartemporizador(){
+              window.clearInterval(stop);            
+          }       	  
+               function buscar(){
+              
+              var url="doMostrarTemperaturas";
+              $.get(url,procesarRespuesta);
+              
+          }
+          function borrar(){              
+              temp.pop();
+              humedades.pop();
+              fechas.pop();
+              myChart.destroy();             
+
+          }
+           var temp2;
+           var humedades2;
+           var fechas2;
+           var temp=[];
+           var data=[];
+           var humedades=[];
+           var fechas= [];         
+           var myChart;
+              function procesarRespuesta(data){
+              
+              $.each(data,function(index,lista){  
+                  
+                 temp2 +=lista.temp1 +",";
+                 humedades2 +=lista.humedad +",";
+                 fechas2 +=lista.fecha +",";
+                 temp.push( lista.temp1 )    ;
+                 humedades.push( lista.humedad );               
+                 fechas.push ( lista.fecha); 
+                 console.log(temp )                
+                 
+             
+              });
+              
+              
+              }       
+              function graficar(){ 
+                     
+              var ctx = document.getElementById('myChart').getContext('2d');
+              myChart = new Chart(ctx, {                  
+                  type: 'line',
+                  data: {
+                      labels:fechas,
+                      datasets: [{
+                          label: 'Temperatura',                         
+                          data: temp,                                           
+                       },                         
+                          {
+                          label: 'Humedad',                        
+                          data: humedades,                      
+                          }                                                                          
+                      ]                      
+                  },                 
+              });
+              console.log(temp);   
+          }
+    
+   
+ </script>
+</html>

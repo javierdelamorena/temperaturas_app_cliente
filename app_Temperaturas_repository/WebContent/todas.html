@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+</head>
+<body>
+	<div ng-app="resultadosApp" ng-controller="resultadosController" class="container">
+	
+	
+	<div class="container">
+        <center>
+		<h1>Temperaturas</h1>
+        <table  class="table table-condensed" border="1" ng-init="mostrar();">
+            <thead>
+                <tr> 
+                    <th>Temperatura</th>
+                    <th>Humedad</th>
+                    <th>Fecha</th>                   
+                </tr>
+            </thead>					
+                <tr ng-repeat="temp in lista" >
+                    
+                        <td>{{temp.temp1}}</td>						
+                        <td>{{temp.humedad}}</td>
+                        <td>{{temp.fecha}}</td>
+                        																						
+               </tr>
+           
+        </table>
+    </center>
+    <a href="toMenu">Menu </a>
+	</div>
+	<script>
+		var app=angular.module("resultadosApp",[]);
+		app.controller("resultadosController",function($scope,$http){
+			
+            $scope.mostrar=function() {	
+				let url = "doTodasTemperaturas";
+				//let url = "http://localhost:7000/shoteles/hoteles";
+				$http.get(url).then(function(res){
+					$scope.lista=res.data;
+								
+				});
+            }
+           }
+			
+		);
+	
+	</script>
+</body>
+</html>
