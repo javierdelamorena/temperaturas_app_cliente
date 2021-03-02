@@ -39,7 +39,7 @@ public class TemperaturaServiceImpl implements Temperatura_Service {
 	@Override
 	public void agregarTeperatuta(int temp,int humedad) {
 		
-		template.postForLocation(url+"TemperaturasAgregar/{temp}/{humedad}",temp ,humedad);
+		template.postForLocation(url+"TemperaturasAgregar/{temp}/{humedad}",temp,humedad);
 
 	}
 

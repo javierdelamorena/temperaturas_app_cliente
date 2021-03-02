@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        background-color: #a6f83ac2;
+    }
+  
+    div.col-12 {
+         background-color: rgb(255, 255, 255);
+         margin-left: 300px; 
+    }
+  
+    .myTitle {
+        color: rgb(233, 32, 32);
+        font-size: 200%;
+        text-align: center;
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin: 10px 0;
+    }
+  
+    .rule {
+        height: 3px;
+        width: 100%;
+        background: rgb(218, 23, 17);
+        margin-top: 0;
+    }
+
+       
+</style>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="">Agregar Temperatura</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="toMenu">Home</a></li>
+        <li><a href="toAgregar">Agregar Temp</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Graficos <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="toGraficoBarras">Grafico Barras</a></li>
+            <li><a href="toGraficoLinea">Grafico Lineas</a></li>
+            <li><a href="toGraficoEntreFechas">Grafico Entre Fechas</a></li>
+          </ul>
+          
+       
+        
+        <li><a href="toTodas">Todas las mediciones</a></li>
+        <li><a href="toInformacion">Informacion general</a></li>
+        <li><a href="toconfiguracion">Configurar temperatura</a></li>
+        
+      </ul>
+      
+    </div>
+  </nav>
+<body>
+    <center>
+
+    <form action="doAgregarTemperaturas" method="Post">
+        <div class="input-group" style="width:30%">
+
+            
+      
+        Temperatura:<input type="text" name="temp1" class="form-control"></br></br>
+        Humedad:<input type="text" name="humedad" class="form-control"></br>
+        
+        <input type="submit" value="insertar">
+
+    </div>
+
+    </form>
+</center>
+</body>
+</html>

@@ -41,7 +41,7 @@ public class TemperaturaController {
 		return lista;
 	}
 
-	@PostMapping(value="doAgregarTemperaturas", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="doAgregarTemperaturas", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String agregar(@RequestParam("temp1") String temp1, @RequestParam("humedad") String humedad,
 			HttpSession sesion) {
 		

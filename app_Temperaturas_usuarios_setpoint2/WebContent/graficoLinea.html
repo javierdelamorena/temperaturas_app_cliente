@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Visualización de datos</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        background-color: #a6f83ac2;
+    }
+  
+    div.col-4 {
+         
+         margin-top: 300px;
+         margin-left: 600px; 
+           
+        
+    }
+  
+    .myTitle {
+        color: rgb(233, 32, 32);
+        font-size: 200%;
+        text-align: center;
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+       
+    }
+  
+    .rule {
+        height: 3px;
+        width: 100%;
+        background: rgb(218, 23, 17);
+       
+    }
+
+       
+</style>
+
+
+<body onload="buscar();">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="">Grafico Linea</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="toMenu">Home</a></li>
+            <li><a href="toAgregar">Agregar Temp</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Graficos <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="toGraficoBarras">Grafico Barras</a></li>
+                <li><a href="toGraficoLinea">Grafico Lineas</a></li>
+                <li><a href="toGraficoEntreFechas">Grafico Entre Fechas</a></li>
+              </ul>
+              
+           
+            
+            <li><a href="toTodas">Todas las mediciones</a></li>
+            <li><a href="toInformacion">Informacion general</a></li>
+            <li><a href="toconfiguracion">Configurar temperatura</a></li>
+            
+          </ul>
+          
+        </div>
+      </nav>
+    <center>
+    <div  class="col-12 col-lg-12">
+        
+         <h1>Temperatura/Humedad</h1>
+           <canvas id="myChart" width="" height="100" ></canvas>
+       
+        <input type="button" onclick="graficar();" value="graficar"> 
+        <input type="button" onclick="borrar();" value="borrar"> 
+        
+    </div> 
+    
+</center>
+
+</body> 
+
+<script >  
+               
+      
+               function buscar(){
+              
+              var url="doMostrarTemperaturas";
+              $.get(url,procesarRespuesta);
+              
+          }
+          function borrar(){              
+              temp.pop();
+              humedades.pop();
+              fechas.pop();
+              myChart.destroy();             
+
+          }
+           
+           var temp=[];
+           var data=[];
+           var humedades=[];
+           var fechas= [];         
+           var myChart;
+              function procesarRespuesta(data){
+              
+              $.each(data,function(index,lista){  
+                  
+                 
+                 temp.push( lista.temp1 )    ;
+                 humedades.push( lista.humedad );               
+                 fechas.push ( lista.fecha); 
+                 console.log(temp )                
+                 
+             
+              });
+              
+              
+              }       
+              function graficar(){ 
+                     
+              var ctx = document.getElementById('myChart').getContext('2d');
+              myChart = new Chart(ctx, {                  
+                  type: 'line',
+                  data: {
+                      labels:fechas,
+                      datasets: [{
+                          label: 'Temperatura',                         
+                          data: temp,                                           
+                       },                         
+                          {
+                          label: 'Humedad',                        
+                          data: humedades,                      
+                          }                                                                          
+                      ]                      
+                  },                 
+              });
+              console.log(temp);   
+          }
+    
+   
+ </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+	body{
+
+		background-color: #a6f83ac2;
+	}
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a{
+	color:LIGHTSLATEGRAY;
+}
+h1{
+	color:DARKSALMON;
+}
+legend{
+	color:INDIANRED;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Registro de Alumnos</title>
+</head>
+<body>
+	<div class="container">
+	
+	<legend>Datos personales</legend>
+		<form action="doLoging" method="GET">
+			
+			<label for="nombre">Nombre</label><br>
+			<input type="text" name="nombre" required="required" class="form-control" style="width:30%"><br>
+            <label for="password">Password</label><br>			
+			<input type="password" name="password" required="required" class="form-control" style="width:30%"><br>
+			
+			<input type="submit" value="Guardar">
+			<input type="reset">
+		</form>
+	
+</div>
+	
+</body>
+</html>

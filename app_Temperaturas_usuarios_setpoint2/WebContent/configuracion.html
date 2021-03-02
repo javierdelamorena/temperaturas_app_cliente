@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<style>
+
+body {
+        background-color: #a6f83ac2;
+    }
+
+
+</style>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="">Configuracion</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="toMenu">Home</a></li>
+      <li><a href="toAgregar">Agregar Temp</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Graficos <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="toGraficoBarras">Grafico Barras</a></li>
+          <li><a href="toGraficoLinea">Grafico Lineas</a></li>
+          <li><a href="toGraficoEntreFechas">Grafico Entre Fechas</a></li>
+        </ul>
+        
+     
+      
+      <li><a href="toTodas">Todas las mediciones</a></li>
+      <li><a href="toInformacion">Informacion general</a></li>
+      <li><a href="toconfiguracion">Configurar temperatura</a></li>
+      
+    </ul>
+    
+  </div>
+</nav>
+<body>
+  
+  
+  
+  
+  <div class="input-group" style="width:10%">
+    
+    <form action="doAgregarSetPoint" method="POST">
+           <label> Introduce la Temperatura deseada:</label><input type="text" name="temp" class="form-control">
+           <label> Introduce la Humedad deseada:</label><input type="text" name="humedades" class="form-control">
+                <input type="submit" value="set up">
+
+
+    </form></br>
+  
+    <form action="doActualizarSetPoint" method="POST">
+
+      <label> Introduce la Temperatura a actualizar:</label><input type="text" name="temp" class="form-control">
+      <label> Introduce la Humedad a actualizar:</label><input type="text" name="humedades" class="form-control">
+          <input type="submit" value="actualizar">
+
+
+</form></br>
+<form action="doBorrarSetPoint" method="Get">           
+         <input type="submit" value="borrar">
+</form></br>
+    
+  
+  </div>
+  
+
+
+
+</body>
+
+</html>

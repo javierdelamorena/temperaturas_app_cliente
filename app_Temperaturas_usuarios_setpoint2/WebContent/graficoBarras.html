@@ -1,0 +1,149 @@
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      
+        
+    </head>
+    <style>
+        body {
+            background-color: #a6f83ac2;
+        }
+      
+        div.col-12 {
+             
+             margin: 100px; 
+             margin-left: 550px; 
+        }
+      
+        .myTitle {
+            color: rgb(233, 32, 32);
+            font-size: 200%;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin: 10px 0;
+        }
+      
+        .rule {
+            height: 3px;
+            width: 100%;
+            background: rgb(218, 23, 17);
+            margin-top: 0;
+        }
+    
+           
+    </style>
+    <body onload="activartemporizar();" >
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="">Grafico Barras</a>
+                  </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="toMenu">Home</a></li>
+                <li><a href="toAgregar">Agregar Temp</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Graficos <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="toGraficoBarras">Grafico Barras</a></li>
+                    <li><a href="toGraficoLinea">Grafico Lineas</a></li>
+                    <li><a href="toGraficoEntreFechas">Grafico Entre Fechas</a></li>
+                  </ul>
+                  
+               
+                
+                <li><a href="toTodas">Todas las mediciones</a></li>
+                <li><a href="toInformacion">Informacion general</a></li>
+                <li><a href="toconfiguracion">Configurar temperatura</a></li>
+                
+              </ul>
+              
+            </div>
+          </nav>
+        
+            
+       <div  class="col-12 col-lg-4">
+        <h1>Mediciones en Tiempo Real</h1>
+           
+               <canvas id="myChart" width="" height="200" background-color="blue"></canvas>
+           
+           
+               <input type="button" onclick="desactivartemporizador();" value="desactivar">
+             
+                     
+      </div></br>
+      
+    
+    
+    </body>
+    <script type="text/javascript" >
+    
+          
+          function buscar(){
+              
+            var url="doMostrarTemperaturas";
+            $.get(url,procesarRespuesta);
+            
+        }
+        var temp;
+        var humedad;
+        var fecha;
+        
+            function procesarRespuesta(data){
+            
+            $.each(data,function(index,lista){               
+               temp=lista.temp1;
+               humedad=lista.humedad;
+               fecha=lista.fecha;              
+           
+            });
+            
+            }      
+          var stop;
+          function activartemporizar(){
+              stop=window.setInterval(graficar,5000);
+              window.setInterval(buscar,5000);
+          }
+          function desactivartemporizador(){
+              window.clearInterval(stop);            
+          }       	
+          
+          
+            
+          function graficar(){        
+              var ctx = document.getElementById('myChart').getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: [fecha, fecha],
+                      datasets: [{
+                          label: 'temperatura/humadad',
+                          data: [temp, humedad],
+                          
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(255, 99, 132, 1)'                            
+                          ],
+                          borderWidth: 4
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero: true
+                              }
+                          }]
+                      }
+                  }
+              });
+          }
+    
+    </script>
+    
+</html>
